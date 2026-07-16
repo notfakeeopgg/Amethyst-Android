@@ -511,5 +511,6 @@
     <string name="select_lwjgl3ify_version">Select LWJGL3ify version</string>
     <string name="lwjgl3ify_installer_available_versions">Supported LWJGL3IFY versions</string>
     <string name="lwjgl3ify_installer_broken_versions">Broken LWJGL3ify versions (SDL)</string>
+    <string name="error_key_unsupported">Error! The key assigned to this button is invalid. Did you try updating?</string>
 
 </resources>
