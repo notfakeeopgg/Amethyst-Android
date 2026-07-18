@@ -10,8 +10,10 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -89,6 +91,55 @@ public class MainMenuFragment extends Fragment {
             } else openPath(v.getContext(), getCurrentProfileDirectory(), false);
 
         });
+
+        // ===== Parrot Client: top navigation =====
+        TextView mNavProfiles = view.findViewById(R.id.nav_profiles);
+        TextView mNavAccounts = view.findViewById(R.id.nav_accounts);
+        TextView mNavPartners = view.findViewById(R.id.nav_partners);
+        TextView mNavSettings = view.findViewById(R.id.nav_settings);
+        if (mNavProfiles != null) mNavProfiles.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ProfileTypeSelectFragment.class, ProfileTypeSelectFragment.TAG, null));
+        if (mNavAccounts != null) mNavAccounts.setOnClickListener(v -> Tools.swapFragment(requireActivity(), SelectAuthFragment.class, SelectAuthFragment.TAG, null));
+        if (mNavSettings != null) mNavSettings.setOnClickListener(v -> Tools.swapFragment(requireActivity(), LauncherSettingsFragment.class, LauncherSettingsFragment.TAG, null));
+        if (mNavPartners != null) mNavPartners.setOnClickListener(v -> {
+            View panel = view.findViewById(R.id.servers_panel);
+            if (panel != null) panel.performClick();
+        });
+
+        // ===== Parrot Client: partner server IP copy =====
+        ViewGroup serversList = view.findViewById(R.id.servers_list);
+        if (serversList != null) {
+            for (int i = 0; i < serversList.getChildCount(); i++) {
+                View row = serversList.getChildAt(i);
+                TextView ipView = row.findViewById(android.R.id.text1);
+                if (ipView == null) {
+                    // find the IP TextView by traversing (it's the ParrotServerIp)
+                    for (int j = 0; j < ((ViewGroup) row).getChildCount(); j++) {
+                        View c = ((ViewGroup) row).getChildAt(j);
+                        if (c instanceof ViewGroup) {
+                            for (int k = 0; k < ((ViewGroup) c).getChildCount(); k++) {
+                                View cc = ((ViewGroup) c).getChildAt(k);
+                                if (cc instanceof TextView && ((TextView) cc).getText() != null
+                                        && ((TextView) cc).getText().toString().contains(".")) {
+                                    ipView = (TextView) cc; break;
+                                }
+                            }
+                        }
+                        if (ipView != null) break;
+                    }
+                }
+                if (ipView != null) {
+                    final TextView finalIp = ipView;
+                    row.setOnClickListener(v -> {
+                        String ip = finalIp.getText().toString();
+                        android.content.ClipboardManager cm = (android.content.ClipboardManager) requireContext().getSystemService(android.content.Context.CLIPBOARD_SERVICE);
+                        if (cm != null) {
+                            cm.setPrimaryClip(android.content.ClipData.newPlainText("server_ip", ip));
+                            Toast.makeText(requireContext(), "Copied: " + ip, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        }
 
 
         mNewsButton.setOnLongClickListener((v)->{
