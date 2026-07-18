@@ -514,6 +514,7 @@
     <string name="nav_partners" translatable="false">Partners</string>
     <string name="nav_settings" translatable="false">Settings</string>
     <string name="profile_online" translatable="false">Online</string>
+    <string name="profile_label" translatable="false">Profile</string>
     <string name="profile_default_user" translatable="false">Player</string>
     <string name="partner_servers_title">Partner Servers</string>
     <string name="partner_servers_sub">Tap a server to copy its IP</string>
