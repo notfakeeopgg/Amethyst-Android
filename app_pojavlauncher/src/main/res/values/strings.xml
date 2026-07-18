@@ -524,4 +524,7 @@
     <string name="tag_ram" translatable="false">3.5GB</string>
     <string name="servers_operational" translatable="false">All systems operational</string>
 
+    <string name="footer_copyright" translatable="false">© 2026 Parrot Client</string>
+    <string name="footer_version" translatable="false">Version 1.0</string>
+
 </resources>
