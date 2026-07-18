@@ -88,25 +88,35 @@ public class MinecraftDownloader {
             try {
                 if(isLocalProfile || !isOnline) {
                     String versionMessage = realVersion; // Use provided version unless we find its a modded instance
+                    File providedJsonFile = new File(Tools.DIR_HOME_VERSION + "/" + realVersion + "/" + realVersion + ".json");
 
-                    // See if provided version is a modded version and if that version depends on another jar, check for presence of both jar's .json.
-                    try {
-                        // This reads the .json associated with the provided version. If it fails, we can assume it's not installed.
-                        File providedJsonFile = new File(Tools.DIR_HOME_VERSION + "/" + realVersion + "/" + realVersion + ".json");
-                        JMinecraftVersionList.Version providedJson = Tools.GLOBAL_GSON.fromJson(Tools.read(providedJsonFile.getAbsolutePath()), JMinecraftVersionList.Version.class);
+                    // If the version is not installed yet, download it (local/offline accounts can still download vanilla assets).
+                    if (!providedJsonFile.canRead() || providedJsonFile.length() == 0) {
+                        if (!isOnline) {
+                            Tools.showErrorRemote(realVersion + " is not currently installed. Please ensure you have an internet connection", new Exception("offline"));
+                        } else {
+                            downloadGame(activity, version, realVersion);
+                            listener.onDownloadDone();
+                        }
+                    } else {
+                        // Version already installed: validate modded inheritance, then proceed.
+                        try {
+                            // This reads the .json associated with the provided version.
+                            JMinecraftVersionList.Version providedJson = Tools.GLOBAL_GSON.fromJson(Tools.read(providedJsonFile.getAbsolutePath()), JMinecraftVersionList.Version.class);
 
-                        // This checks if running modded version that depends on other jars, so we use that for the error message.
-                        File vanillaJsonFile = new File(Tools.DIR_HOME_VERSION + "/" + providedJson.inheritsFrom + "/" + providedJson.inheritsFrom + ".json");
-                        versionMessage = providedJson.inheritsFrom != null ? providedJson.inheritsFrom : versionMessage;
+                            // This checks if running modded version that depends on other jars, so we use that for the error message.
+                            File vanillaJsonFile = new File(Tools.DIR_HOME_VERSION + "/" + providedJson.inheritsFrom + "/" + providedJson.inheritsFrom + ".json");
+                            versionMessage = providedJson.inheritsFrom != null ? providedJson.inheritsFrom : versionMessage;
 
-                        // Ensure they're both not some 0 byte corrupted json
-                        if (providedJsonFile.length() == 0 || vanillaJsonFile.exists() && vanillaJsonFile.length() == 0){
-                            throw new RuntimeException("Minecraft "+versionMessage+ " is needed by " +realVersion); }
+                            // Ensure they're both not some 0 byte corrupted json
+                            if (providedJsonFile.length() == 0 || vanillaJsonFile.exists() && vanillaJsonFile.length() == 0){
+                                throw new RuntimeException("Minecraft "+versionMessage+ " is needed by " +realVersion); }
 
-                        listener.onDownloadDone();
-                    } catch (Exception e) {
-                        String tryagain = !isOnline ? "Please ensure you have an internet connection" : "Please try again on your Microsoft Account";
-                        Tools.showErrorRemote(versionMessage + " is not currently installed. "+ tryagain, e);
+                            listener.onDownloadDone();
+                        } catch (Exception e) {
+                            String tryagain = !isOnline ? "Please ensure you have an internet connection" : "Please try again on your Microsoft Account";
+                            Tools.showErrorRemote(versionMessage + " is not currently installed. "+ tryagain, e);
+                        }
                     }
                 }else {
                 downloadGame(activity, version, realVersion);
