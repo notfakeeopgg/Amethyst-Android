@@ -111,7 +111,11 @@ public class ParrotHomeFragment extends Fragment {
         mEditProfileButton.setOnClickListener(v -> mVersionSpinner.openProfileEditor(requireActivity()));
 
         mPlayButton.setOnClickListener(v -> {
-            if (Tools.hasMods("sodium") && !(LauncherPreferences.DEFAULT_PREF.getBoolean("sodium_override", false))) {
+            // Only block Sodium on GPUs actually affected by the render-distance issue
+            // (Adreno + OpenGL ES 3, used with the LTW renderer). On other GPUs (e.g. Mali)
+            // Sodium works fine and should not be force-removed.
+            if (Tools.hasMods("sodium") && Tools.affectedByLTWRenderDistanceIssue()
+                    && !(LauncherPreferences.DEFAULT_PREF.getBoolean("sodium_override", false))) {
                 AlertDialog sodiumWarningDialog = new AlertDialog.Builder(requireContext())
                         .setTitle(R.string.sodium_warning_title)
                         .setMessage(R.string.sodium_warning_message)
@@ -131,7 +135,17 @@ public class ParrotHomeFragment extends Fragment {
             } else openPath(v.getContext(), getCurrentProfileDirectory(), false);
         });
 
-        // ----- partner servers: tap a row copies its IP -----
+        // ----- Content Library / Mods hub -----
+        TextView modsOpen = view.findViewById(R.id.parrot_mods_open);
+        View catMods = view.findViewById(R.id.parrot_cat_mods);
+        View catRp = view.findViewById(R.id.parrot_cat_resourcepacks);
+        View catShaders = view.findViewById(R.id.parrot_cat_shaders);
+        View catWorlds = view.findViewById(R.id.parrot_cat_worlds);
+        if (modsOpen != null) modsOpen.setOnClickListener(v -> openModBrowser(null));
+        if (catMods != null) catMods.setOnClickListener(v -> openModBrowser("mod"));
+        if (catRp != null) catRp.setOnClickListener(v -> openModBrowser("resourcepack"));
+        if (catShaders != null) catShaders.setOnClickListener(v -> openModBrowser("shader"));
+        if (catWorlds != null) catWorlds.setOnClickListener(v -> openModBrowser("world"));
         ViewGroup serversList = view.findViewById(R.id.parrot_servers_list);
         if (serversList != null) {
             for (int i = 0; i < serversList.getChildCount(); i++) {
@@ -185,5 +199,36 @@ public class ParrotHomeFragment extends Fragment {
             Tools.installMod(requireActivity(), isCustomArgs);
         else
             Toast.makeText(requireContext(), R.string.tasks_ongoing, Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Open the existing Modrinth / CurseForge browser (SearchModFragment).
+     * First asks which profile to install into, then switches to that profile so
+     * the installed mod / resource pack / shader / world lands in the right place.
+     * @param category optional category hint ("mod", "resourcepack", "shader", "world")
+     */
+    private void openModBrowser(String category) {
+        LauncherProfiles.load();
+        if (LauncherProfiles.mainProfileJson == null || LauncherProfiles.mainProfileJson.profiles == null
+                || LauncherProfiles.mainProfileJson.profiles.isEmpty()) {
+            Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, null);
+            return;
+        }
+        java.util.Map<String, MinecraftProfile> profiles = LauncherProfiles.mainProfileJson.profiles;
+        CharSequence[] names = new CharSequence[profiles.size()];
+        java.util.List<String> ids = new java.util.ArrayList<>(profiles.keySet());
+        for (int i = 0; i < ids.size(); i++) names[i] = ids.get(i);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle(R.string.parrot_mods_install_profile_title);
+        builder.setMessage(R.string.parrot_mods_install_profile_prompt);
+        builder.setItems(names, (dialog, which) -> {
+            String chosen = ids.get(which);
+            LauncherPreferences.DEFAULT_PREF.edit()
+                    .putString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, chosen).apply();
+            Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, null);
+        });
+        builder.setNegativeButton(android.R.string.cancel, null);
+        builder.show();
     }
 }

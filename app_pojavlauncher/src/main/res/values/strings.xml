@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!-- App name part -->
-    <string name="app_name" translatable="false">Parrot Client</string>
+    <string name="app_name" translatable="false">Parrot Launcher</string>
 
     <!-- Action bar part -->
 
@@ -21,7 +21,7 @@
     <string name="alerttitle_installmod">Select a mod installer</string>
 
     <!-- Error messages -->
-    <string name="error_fatal">Amethyst has unexpectedly crashed</string>
+    <string name="error_fatal">Parrot Launcher has unexpectedly crashed</string>
     <string name="error_no_version">No version!</string>
     <string name="error_show_more">Show more</string>
     <string name="error_show_less">Show less</string>
@@ -244,7 +244,7 @@
     <string name="color_default_hex" translatable="false">FFFF0000</string>
     <string name="notif_channel_name">General</string>
     <string name="notif_channel_id" translatable="false">channel_id</string>
-    <string name="lazy_service_default_title">Amethyst Foreground Service</string>
+    <string name="lazy_service_default_title">Parrot Launcher Foreground Service</string>
     <string name="mcl_setting_veroption_installed">Installed</string>
     <string name="use_global_default">(Use global default)</string>
     <string name="default_control">Default controlmap</string>
@@ -457,7 +457,7 @@
     <string name="mg_renderer_summary_computeShaderext">May help with shaderpack glitches. Disable if not needed, can cause crashes.</string>
     <string name="mg_renderer_title_multidrawCompute">Use Compute Multidraw Emulation</string>
     <string name="mg_renderer_summary_multidrawCompute">Uses compute shaders for multidraw emulation</string>
-    <string name="app_short_name" translatable="false">Parrot Client</string>
+    <string name="app_short_name" translatable="false">Parrot Launcher</string>
     <string name="demo_versions_supported">Only Vanilla 1.3.1 and above are supported on demo accounts</string>
     <string name="demo_unsupported">Demo Profile not supported</string>
     <string name="change_account">Please change accounts to use this function</string>
@@ -507,7 +507,7 @@
     <string name="global_installing">Installing…</string>
 
 
-    <!-- Parrot Client navigation -->
+    <!-- Parrot Launcher navigation -->
     <string name="nav_home" translatable="false">Home</string>
     <string name="nav_profiles" translatable="false">Profiles</string>
     <string name="nav_accounts" translatable="false">Accounts</string>
@@ -526,7 +526,17 @@
     <string name="tag_ram" translatable="false">3.5GB</string>
     <string name="servers_operational" translatable="false">All systems operational</string>
 
-    <string name="footer_copyright" translatable="false">© 2026 Parrot Client</string>
+    <string name="footer_copyright" translatable="false">© 2026 Parrot Launcher</string>
+    <string name="parrot_tab_mods" translatable="false">Mods</string>
+    <string name="parrot_mods_hub_title">Content Library</string>
+    <string name="parrot_mods_hub_sub">Browse & install Mods, Resource Packs, Shaders & Worlds from Modrinth & CurseForge</string>
+    <string name="parrot_mods_browse">Browse Modrinth / CurseForge</string>
+    <string name="parrot_mods_install_profile_title">Install into profile</string>
+    <string name="parrot_mods_install_profile_prompt">Choose which game profile this content installs to:</string>
+    <string name="parrot_mods_category_mods">Mods</string>
+    <string name="parrot_mods_category_resourcepacks">Resource Packs</string>
+    <string name="parrot_mods_category_shaders">Shaders</string>
+    <string name="parrot_mods_category_worlds">Worlds</string>
     <string name="footer_version" translatable="false">Version 1.0</string>
 
 </resources>

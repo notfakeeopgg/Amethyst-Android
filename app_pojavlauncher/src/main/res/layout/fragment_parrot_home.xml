@@ -207,6 +207,61 @@
                     app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <!-- ===== Content Library / Mods card ===== -->
+            <LinearLayout
+                android:id="@+id/parrot_mods_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card_brown"
+                android:padding="@dimen/_12sdp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/parrot_mods_hub_title"
+                        android:textColor="@color/accent_warm"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/parrot_mods_open"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parrot_mods_browse"
+                        android:textColor="@color/accent_warm"
+                        android:textSize="@dimen/_11ssp"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:padding="@dimen/_4sdp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:text="@string/parrot_mods_hub_sub"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="@dimen/_10ssp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+                    <TextView style="@style/ParrotCatChip" android:id="@+id/parrot_cat_mods" android:text="@string/parrot_mods_category_mods" />
+                    <TextView style="@style/ParrotCatChip" android:id="@+id/parrot_cat_resourcepacks" android:text="@string/parrot_mods_category_resourcepacks" />
+                    <TextView style="@style/ParrotCatChip" android:id="@+id/parrot_cat_shaders" android:text="@string/parrot_mods_category_shaders" />
+                    <TextView style="@style/ParrotCatChip" android:id="@+id/parrot_cat_worlds" android:text="@string/parrot_mods_category_worlds" />
+                </LinearLayout>
+            </LinearLayout>
+
             <!-- ===== Partner servers panel (right) ===== -->
             <LinearLayout
                 android:id="@+id/parrot_servers_panel"
