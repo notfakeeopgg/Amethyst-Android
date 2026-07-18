@@ -2,7 +2,6 @@ package net.kdt.pojavlaunch.fragments;
 
 import static net.kdt.pojavlaunch.Tools.dialogOnUiThread;
 import static net.kdt.pojavlaunch.Tools.hasNoOnlineProfileDialog;
-import static net.kdt.pojavlaunch.Tools.hasOnlineProfile;
 import static net.kdt.pojavlaunch.Tools.openPath;
 import static net.kdt.pojavlaunch.Tools.runOnUiThread;
 import static net.kdt.pojavlaunch.Tools.shareLog;
@@ -59,13 +58,11 @@ public class MainMenuFragment extends Fragment {
         mNewsButton.setOnClickListener(v -> Tools.openURL(requireActivity(), Tools.URL_HOME));
         mDiscordButton.setOnClickListener(v -> Tools.openURL(requireActivity(), getString(R.string.discord_invite)));
         mCustomControlButton.setOnClickListener(v -> startActivity(new Intent(requireContext(), CustomControlsActivity.class)));
-        if (hasOnlineProfile()) {
-            mInstallJarButton.setOnClickListener(v -> runInstallerWithConfirmation(false));
-            mInstallJarButton.setOnLongClickListener(v -> {
-                runInstallerWithConfirmation(true);
-                return true;
-            });
-        } else mInstallJarButton.setOnClickListener(v -> hasNoOnlineProfileDialog(requireActivity()));
+        mInstallJarButton.setOnClickListener(v -> runInstallerWithConfirmation(false));
+        mInstallJarButton.setOnLongClickListener(v -> {
+            runInstallerWithConfirmation(true);
+            return true;
+        });
         mEditProfileButton.setOnClickListener(v -> mVersionSpinner.openProfileEditor(requireActivity()));
 
         mPlayButton.setOnClickListener(v -> {
@@ -89,8 +86,6 @@ public class MainMenuFragment extends Fragment {
         mOpenDirectoryButton.setOnClickListener((v)-> {
             if (Tools.isDemoProfile(v.getContext())){ // Say a different message when on demo profile since they might see the hidden demo folder
                 hasNoOnlineProfileDialog(getActivity(), getString(R.string.demo_unsupported), getString(R.string.change_account));
-            } else if (!hasOnlineProfile()) { // Otherwise display the generic pop-up to log in
-                hasNoOnlineProfileDialog(requireActivity());
             } else openPath(v.getContext(), getCurrentProfileDirectory(), false);
 
         });
