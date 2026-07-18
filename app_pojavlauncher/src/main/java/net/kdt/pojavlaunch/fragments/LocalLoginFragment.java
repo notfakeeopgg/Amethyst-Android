@@ -44,7 +44,7 @@ public class LocalLoginFragment extends Fragment {
             ExtraCore.setValue(ExtraConstants.MOJANG_LOGIN_TODO, new String[]{
                     mUsernameEditText.getText().toString(), "" });
 
-            Tools.swapFragment(requireActivity(), MainMenuFragment.class, MainMenuFragment.TAG, null);
+            Tools.swapFragment(requireActivity(), ParrotHomeFragment.class, ParrotHomeFragment.TAG, null);
         });
     }
 
