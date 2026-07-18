@@ -1,0 +1,87 @@
+{
+  "_comment": "Multi-version profile preset catalog for the branded launcher. Each entry is a selectable profile the user can tap to create an instance. Renderer 'gl4es_holy' = Holy GL4ES (Mali-G68 safe, Zink excluded). Mods auto-installed on first launch of that profile.",
+  "default_renderer": "gl4es_holy",
+  "profiles": [
+    {
+      "id": "pvp189",
+      "name": "PvP 1.8.9 (FPS)",
+      "version": "1.8.9",
+      "loader": "vanilla",
+      "jre": "jre8",
+      "renderer": "gl4es_holy",
+      "description": "Classic PvP. Lightest profile, max FPS on Mali.",
+      "mods": []
+    },
+    {
+      "id": "pvp189fabric",
+      "name": "PvP 1.8.9 + Fabric (Sodium/Lithium/EntityCulling + PvP HUD)",
+      "version": "1.8.9",
+      "loader": "fabric",
+      "jre": "jre8",
+      "renderer": "gl4es_holy",
+      "description": "Fabric on 1.8.9 with performance + PvP HUD mods.",
+      "mods": [
+        { "project": "sodium", "loader": "fabric", "mc": "1.8.9", "note": "use legacy sodium 0.1.x for 1.8.9" },
+        { "project": "lithium", "loader": "fabric", "mc": "1.8.9" },
+        { "project": "entityculling", "loader": "fabric", "mc": "1.8.9" },
+        { "project": "pvphud", "loader": "fabric", "mc": "1.8.9", "note": "e.g. CPS mod / PvP HUD (pick a 1.8.9-compatible one)" }
+      ]
+    },
+    {
+      "id": "modern1214",
+      "name": "Modern 1.21.4",
+      "version": "1.21.4",
+      "loader": "fabric",
+      "jre": "jre21",
+      "renderer": "gl4es_holy",
+      "description": "Latest-ish modern. Needs JRE 21 (fetched at runtime).",
+      "mods": [
+        { "project": "sodium", "loader": "fabric", "mc": "1.21.4" },
+        { "project": "lithium", "loader": "fabric", "mc": "1.21.4" },
+        { "project": "entityculling", "loader": "fabric", "mc": "1.21.4" }
+      ]
+    },
+    {
+      "id": "modern12111",
+      "name": "Modern 1.21.11",
+      "version": "1.21.11",
+      "loader": "fabric",
+      "jre": "jre21",
+      "renderer": "gl4es_holy",
+      "description": "Modern 1.21.11 with performance mods.",
+      "mods": [
+        { "project": "sodium", "loader": "fabric", "mc": "1.21.11" },
+        { "project": "lithium", "loader": "fabric", "mc": "1.21.11" },
+        { "project": "entityculling", "loader": "fabric", "mc": "1.21.11" }
+      ]
+    },
+    {
+      "id": "future261",
+      "name": "Future 26.1.2",
+      "version": "26.1.2",
+      "loader": "fabric",
+      "jre": "jre21",
+      "renderer": "gl4es_holy",
+      "description": "Cutting-edge 26.x build. Verify DataVersion support in your MC build.",
+      "mods": [
+        { "project": "sodium", "loader": "fabric", "mc": "26.1.2" },
+        { "project": "lithium", "loader": "fabric", "mc": "26.1.2" },
+        { "project": "entityculling", "loader": "fabric", "mc": "26.1.2" }
+      ]
+    },
+    {
+      "id": "future262",
+      "name": "Future 26.2",
+      "version": "26.2",
+      "loader": "fabric",
+      "jre": "jre21",
+      "renderer": "gl4es_holy",
+      "description": "26.2 build. Matches the Litematica data version 4671 from your working file.",
+      "mods": [
+        { "project": "sodium", "loader": "fabric", "mc": "26.2" },
+        { "project": "lithium", "loader": "fabric", "mc": "26.2" },
+        { "project": "entityculling", "loader": "fabric", "mc": "26.2" }
+      ]
+    }
+  ]
+}
