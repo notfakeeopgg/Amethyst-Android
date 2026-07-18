@@ -366,7 +366,7 @@ public final class Tools {
 
     private static String[] sodiumMods = {"sodium", "embeddium", "rubidium", "xenon"};
 
-    private static boolean affectedByLTWRenderDistanceIssue() {
+    public static boolean affectedByLTWRenderDistanceIssue() {
         if(!"opengles3_ltw".equals(Tools.LOCAL_RENDERER)) return false;
         if(!affectedByRenderDistanceIssue()) return false;
         if(hasMods(sodiumMods)) return false;
