@@ -67,6 +67,23 @@ public class ParrotHomeFragment extends Fragment {
         mVersionSpinner = view.findViewById(R.id.parrot_version_spinner);
 
         ImageView mDiscordIcon = view.findViewById(R.id.parrot_discord_icon);
+        ImageView mStatusAvatar = view.findViewById(R.id.parrot_status_avatar);
+        ImageView mProfileAvatar = view.findViewById(R.id.parrot_profile_avatar);
+        TextView mStatusUsername = view.findViewById(R.id.parrot_status_username);
+        TextView mProfileUsername = view.findViewById(R.id.parrot_profile_username);
+
+        // ----- show the logged-in account's username + skin face -----
+        MinecraftAccount account = MinecraftAccount.getCurrentAccount();
+        String loginName = (account != null && account.username != null) ? account.username : getString(R.string.profile_default_user);
+        mStatusUsername.setText(loginName);
+        mProfileUsername.setText(loginName);
+        try {
+            android.graphics.Bitmap skin = MinecraftAccount.getSkinFace(loginName);
+            if (skin != null) {
+                mStatusAvatar.setImageBitmap(skin);
+                mProfileAvatar.setImageBitmap(skin);
+            }
+        } catch (Exception ignored) {}
 
         TextView navProfiles = view.findViewById(R.id.parrot_nav_profiles);
         TextView navAccounts = view.findViewById(R.id.parrot_nav_accounts);
