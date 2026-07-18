@@ -37,6 +37,7 @@ import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
+import net.kdt.pojavlaunch.PojavProfile;
 
 import java.io.File;
 
@@ -74,7 +75,7 @@ public class ParrotHomeFragment extends Fragment {
         TextView mProfileUsername = view.findViewById(R.id.parrot_profile_username);
 
         // ----- show the logged-in account's username + skin face -----
-        MinecraftAccount account = MinecraftAccount.getCurrentAccount();
+        MinecraftAccount account = PojavProfile.getCurrentProfileContent(requireContext(), null);
         String loginName = (account != null && account.username != null) ? account.username : getString(R.string.profile_default_user);
         mStatusUsername.setText(loginName);
         mProfileUsername.setText(loginName);
