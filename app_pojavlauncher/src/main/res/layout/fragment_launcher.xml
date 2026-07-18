@@ -24,13 +24,26 @@
 				android:layout_height="0dp"
 				android:orientation="vertical"
 				app:layout_constraintGuide_percent="0.5"/>
+
+			<!-- Parrot Launcher logo header -->
+			<ImageView
+				android:id="@+id/parrot_logo"
+				android:layout_width="@dimen/_96sdp"
+				android:layout_height="@dimen/_96sdp"
+				android:src="@drawable/parrot_logo"
+				android:contentDescription="@string/app_name"
+				android:layout_marginTop="@dimen/_12sdp"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="parent" />
+
 			<com.kdt.mcgui.LauncherMenuButton
 				android:id="@+id/news_button"
 				style="@style/LauncherMenuButton.Universal"
 				android:layout_width="0dp"
 				android:text="@string/mcl_tab_wiki"
 				android:drawableStart="@drawable/ic_menu_news"
-				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/parrot_logo"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintEnd_toStartOf="@id/social_divider" />
 			<View
