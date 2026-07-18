@@ -65,6 +65,8 @@ public class ParrotHomeFragment extends Fragment {
         Button mPlayButton = view.findViewById(R.id.parrot_play);
         mVersionSpinner = view.findViewById(R.id.parrot_version_spinner);
 
+        ImageView mDiscordIcon = view.findViewById(R.id.parrot_discord_icon);
+
         TextView navProfiles = view.findViewById(R.id.parrot_nav_profiles);
         TextView navAccounts = view.findViewById(R.id.parrot_nav_accounts);
         TextView navPartners = view.findViewById(R.id.parrot_nav_partners);
@@ -81,7 +83,8 @@ public class ParrotHomeFragment extends Fragment {
 
         // ----- tools -----
         mWikiButton.setOnClickListener(v -> Tools.openURL(requireActivity(), Tools.URL_HOME));
-        mDiscordButton.setOnClickListener(v -> Tools.openURL(requireActivity(), getString(R.string.discord_invite)));
+        mDiscordButton.setOnClickListener(v -> Tools.openURL(requireActivity(), "https://dsc.gg/parrotclient"));
+        if (mDiscordIcon != null) mDiscordIcon.setOnClickListener(v -> Tools.openURL(requireActivity(), "https://dsc.gg/parrotclient"));
         mControlsButton.setOnClickListener(v -> startActivity(new Intent(requireContext(), CustomControlsActivity.class)));
         mJarButton.setOnClickListener(v -> runInstallerWithConfirmation(false));
         mJarButton.setOnLongClickListener(v -> { runInstallerWithConfirmation(true); return true; });

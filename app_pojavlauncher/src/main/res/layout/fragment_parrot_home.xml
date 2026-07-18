@@ -12,32 +12,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/_10sdp">
-
-        <!-- faint parrot watermark -->
-        <ImageView
-            android:id="@+id/parrot_bg_watermark"
-            android:layout_width="@dimen/_160sdp"
-            android:layout_height="@dimen/_160sdp"
-            android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:src="@drawable/parrot_logo"
-            android:alpha="0.05" />
+        android:padding="@dimen/_6sdp">
 
         <!-- ===== Top navigation bar ===== -->
         <LinearLayout
             android:id="@+id/parrot_topbar_bg"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_54sdp"
+            android:layout_height="@dimen/_50sdp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:background="@drawable/bg_topbar_brown"
-            android:paddingHorizontal="@dimen/_12sdp">
+            android:paddingHorizontal="@dimen/_10sdp">
 
             <ImageView
                 android:id="@+id/parrot_logo"
-                android:layout_width="@dimen/_38sdp"
-                android:layout_height="@dimen/_38sdp"
+                android:layout_width="@dimen/_34sdp"
+                android:layout_height="@dimen/_34sdp"
                 android:src="@drawable/parrot_logo"
                 android:contentDescription="@string/app_name" />
 
@@ -45,10 +35,10 @@
                 android:id="@+id/parrot_brand_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginStart="@dimen/_6sdp"
                 android:text="@string/app_name"
                 android:textColor="@color/accent_warm"
-                android:textSize="@dimen/_15ssp"
+                android:textSize="@dimen/_14ssp"
                 android:textStyle="bold" />
 
             <HorizontalScrollView
@@ -56,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:scrollbars="none"
-                android:paddingHorizontal="@dimen/_8sdp">
+                android:paddingHorizontal="@dimen/_6sdp">
                 <LinearLayout
                     android:id="@+id/parrot_nav_row"
                     android:layout_width="wrap_content"
@@ -77,10 +67,13 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
                 <ImageView
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
+                    android:id="@+id/parrot_discord_icon"
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
                     android:src="@drawable/ic_discord"
-                    android:layout_marginEnd="@dimen/_8sdp" />
+                    android:padding="@dimen/_2sdp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:layout_marginEnd="@dimen/_6sdp" />
                 <TextView
                     android:id="@+id/parrot_status_username"
                     android:layout_width="wrap_content"
@@ -97,31 +90,33 @@
         <!-- ===== Two-card row ===== -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="horizontal"
             android:weightSum="2"
-            android:layout_marginTop="@dimen/_10sdp">
+            android:layout_marginTop="@dimen/_6sdp">
 
             <!-- ===== Profile card (left) ===== -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/parrot_profile_card"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_marginEnd="@dimen/_6sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
                 android:background="@drawable/bg_card_brown"
-                android:padding="@dimen/_14sdp">
+                android:padding="@dimen/_12sdp">
 
                 <ImageView
                     android:id="@+id/parrot_profile_avatar"
-                    android:layout_width="@dimen/_64sdp"
-                    android:layout_height="@dimen/_64sdp"
+                    android:layout_width="@dimen/_56sdp"
+                    android:layout_height="@dimen/_56sdp"
                     android:src="@drawable/parrot_logo"
                     android:background="@drawable/bg_circle"
                     android:backgroundTint="@color/brown_primary"
                     android:padding="@dimen/_6sdp"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/parrot_profile_username" />
 
                 <TextView
                     android:id="@+id/parrot_profile_username"
@@ -141,7 +136,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_2sdp"
                     android:text="@string/profile_online"
                     android:textColor="@color/status_online"
                     android:textSize="@dimen/_11ssp"
@@ -155,7 +149,7 @@
                     android:id="@+id/parrot_profile_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:text="@string/profile_label"
                     android:textColor="@color/secondary_text"
                     android:textSize="@dimen/_12ssp"
@@ -170,7 +164,7 @@
                     android:id="@+id/parrot_chips_row"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:orientation="horizontal"
                     app:layout_constraintTop_toBottomOf="@id/parrot_profile_name"
                     app:layout_constraintStart_toStartOf="parent"
@@ -186,7 +180,7 @@
                     android:id="@+id/parrot_version_spinner"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_44sdp"
-                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:background="@drawable/bg_chip_brown"
                     android:drawableEnd="@drawable/spinner_arrow"
                     app:drawableEndSize="@dimen/padding_heavy"
@@ -195,7 +189,8 @@
                     app:drawableEndPadding="@dimen/_8sdp"
                     app:layout_constraintTop_toBottomOf="@id/parrot_chips_row"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/parrot_edit_profile" />
+                    app:layout_constraintEnd_toStartOf="@id/parrot_edit_profile"
+                    app:layout_constraintBottom_toTopOf="@id/parrot_play" />
 
                 <ImageButton
                     android:id="@+id/parrot_edit_profile"
@@ -212,7 +207,7 @@
                     android:id="@+id/parrot_play"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_52sdp"
-                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:background="@drawable/bg_play_gradient"
                     android:textAllCaps="true"
                     android:text="@string/main_play"
@@ -220,6 +215,7 @@
                     android:textSize="@dimen/_15ssp"
                     android:textStyle="bold"
                     app:layout_constraintTop_toBottomOf="@id/parrot_version_spinner"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -228,12 +224,12 @@
             <LinearLayout
                 android:id="@+id/parrot_servers_panel"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_marginStart="@dimen/_6sdp"
+                android:layout_marginStart="@dimen/_4sdp"
                 android:orientation="vertical"
                 android:background="@drawable/bg_servers_panel"
-                android:padding="@dimen/_14sdp">
+                android:padding="@dimen/_12sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -262,71 +258,169 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_2sdp"
-                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_6sdp"
                     android:text="@string/partner_servers_sub"
                     android:textColor="@color/secondary_text"
                     android:textSize="@dimen/_10ssp" />
 
-                <LinearLayout
-                    android:id="@+id/parrot_servers_list"
+                <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:showDividers="middle"
-                    android:divider="@color/divider">
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:fillViewport="true"
+                    android:scrollbars="vertical">
 
-                    <LinearLayout style="@style/ParrotServerRow">
-                        <TextView style="@style/ParrotServerRank" android:text="#1" />
-                        <View style="@style/ParrotServerIcon" android:backgroundTint="#8B5A2B" />
-                        <LinearLayout style="@style/ParrotServerText">
-                            <TextView style="@style/ParrotServerName" android:text="BananaSMP" />
-                            <TextView style="@style/ParrotServerIp" android:text="bananasmp.net" />
+                    <LinearLayout
+                        android:id="@+id/parrot_servers_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:showDividers="middle"
+                        android:divider="@color/divider">
+
+                        <LinearLayout style="@style/ParrotServerRow">
+                            <TextView style="@style/ParrotServerRank" android:text="#1" />
+                            <View style="@style/ParrotServerIcon" android:backgroundTint="#8B5A2B" />
+                            <LinearLayout style="@style/ParrotServerText">
+                                <TextView style="@style/ParrotServerName" android:text="@string/server_generic_name" />
+                                <TextView style="@style/ParrotServerIp" android:text="play.server1.net" />
+                            </LinearLayout>
+                            <TextView style="@style/ParrotServerPlayers" android:text="12/100" />
                         </LinearLayout>
-                        <TextView style="@style/ParrotServerPlayers" android:text="906/2500" />
-                    </LinearLayout>
-                    <LinearLayout style="@style/ParrotServerRow">
-                        <TextView style="@style/ParrotServerRank" android:text="#2" />
-                        <View style="@style/ParrotServerIcon" android:backgroundTint="#7A4FB0" />
-                        <LinearLayout style="@style/ParrotServerText">
-                            <TextView style="@style/ParrotServerName" android:text="AscendiaMC" />
-                            <TextView style="@style/ParrotServerIp" android:text="fast.ascendiamc.com" />
+                        <LinearLayout style="@style/ParrotServerRow">
+                            <TextView style="@style/ParrotServerRank" android:text="#2" />
+                            <View style="@style/ParrotServerIcon" android:backgroundTint="#7A4FB0" />
+                            <LinearLayout style="@style/ParrotServerText">
+                                <TextView style="@style/ParrotServerName" android:text="@string/server_generic_name" />
+                                <TextView style="@style/ParrotServerIp" android:text="play.server2.net" />
+                            </LinearLayout>
+                            <TextView style="@style/ParrotServerPlayers" android:text="34/200" />
                         </LinearLayout>
-                        <TextView style="@style/ParrotServerPlayers" android:text="14/300" />
-                    </LinearLayout>
-                    <LinearLayout style="@style/ParrotServerRow">
-                        <TextView style="@style/ParrotServerRank" android:text="#3" />
-                        <View style="@style/ParrotServerIcon" android:backgroundTint="#D8B53E" />
-                        <LinearLayout style="@style/ParrotServerText">
-                            <TextView style="@style/ParrotServerName" android:text="HappyMC" />
-                            <TextView style="@style/ParrotServerIp" android:text="play.happymc.fun" />
+                        <LinearLayout style="@style/ParrotServerRow">
+                            <TextView style="@style/ParrotServerRank" android:text="#3" />
+                            <View style="@style/ParrotServerIcon" android:backgroundTint="#D8B53E" />
+                            <LinearLayout style="@style/ParrotServerText">
+                                <TextView style="@style/ParrotServerName" android:text="@string/server_generic_name" />
+                                <TextView style="@style/ParrotServerIp" android:text="play.server3.net" />
+                            </LinearLayout>
+                            <TextView style="@style/ParrotServerPlayers" android:text="8/150" />
                         </LinearLayout>
-                        <TextView style="@style/ParrotServerPlayers" android:text="81/999" />
-                    </LinearLayout>
-                    <LinearLayout style="@style/ParrotServerRow">
-                        <TextView style="@style/ParrotServerRank" android:text="#4" />
-                        <View style="@style/ParrotServerIcon" android:backgroundTint="#3E6FD8" />
-                        <LinearLayout style="@style/ParrotServerText">
-                            <TextView style="@style/ParrotServerName" android:text="InSane SMP" />
-                            <TextView style="@style/ParrotServerIp" android:text="Insanesmp.net" />
+                        <LinearLayout style="@style/ParrotServerRow">
+                            <TextView style="@style/ParrotServerRank" android:text="#4" />
+                            <View style="@style/ParrotServerIcon" android:backgroundTint="#3E6FD8" />
+                            <LinearLayout style="@style/ParrotServerText">
+                                <TextView style="@style/ParrotServerName" android:text="@string/server_generic_name" />
+                                <TextView style="@style/ParrotServerIp" android:text="play.server4.net" />
+                            </LinearLayout>
+                            <TextView style="@style/ParrotServerPlayers" android:text="55/300" />
                         </LinearLayout>
-                        <TextView style="@style/ParrotServerPlayers" android:text="237/690" />
-                    </LinearLayout>
-                    <LinearLayout style="@style/ParrotServerRow">
-                        <TextView style="@style/ParrotServerRank" android:text="#5" />
-                        <View style="@style/ParrotServerIcon" android:backgroundTint="#3E8FD8" />
-                        <LinearLayout style="@style/ParrotServerText">
-                            <TextView style="@style/ParrotServerName" android:text="EternalNetwork" />
-                            <TextView style="@style/ParrotServerIp" android:text="fast.eternalnetwork.club" />
+                        <LinearLayout style="@style/ParrotServerRow">
+                            <TextView style="@style/ParrotServerRank" android:text="#5" />
+                            <View style="@style/ParrotServerIcon" android:backgroundTint="#3E8FD8" />
+                            <LinearLayout style="@style/ParrotServerText">
+                                <TextView style="@style/ParrotServerName" android:text="@string/server_generic_name" />
+                                <TextView style="@style/ParrotServerIp" android:text="play.server5.net" />
+                            </LinearLayout>
+                            <TextView style="@style/ParrotServerPlayers" android:text="3/120" />
                         </LinearLayout>
-                        <TextView style="@style/ParrotServerPlayers" android:text="2/2026" />
+                        <LinearLayout style="@style/ParrotServerRow">
+                            <TextView style="@style/ParrotServerRank" android:text="#6" />
+                            <View style="@style/ParrotServerIcon" android:backgroundTint="#8B5A2B" />
+                            <LinearLayout style="@style/ParrotServerText">
+                                <TextView style="@style/ParrotServerName" android:text="@string/server_generic_name" />
+                                <TextView style="@style/ParrotServerIp" android:text="play.server6.net" />
+                            </LinearLayout>
+                            <TextView style="@style/ParrotServerPlayers" android:text="21/100" />
+                        </LinearLayout>
+                        <LinearLayout style="@style/ParrotServerRow">
+                            <TextView style="@style/ParrotServerRank" android:text="#7" />
+                            <View style="@style/ParrotServerIcon" android:backgroundTint="#7A4FB0" />
+                            <LinearLayout style="@style/ParrotServerText">
+                                <TextView style="@style/ParrotServerName" android:text="@string/server_generic_name" />
+                                <TextView style="@style/ParrotServerIp" android:text="play.server7.net" />
+                            </LinearLayout>
+                            <TextView style="@style/ParrotServerPlayers" android:text="9/180" />
+                        </LinearLayout>
+                        <LinearLayout style="@style/ParrotServerRow">
+                            <TextView style="@style/ParrotServerRank" android:text="#8" />
+                            <View style="@style/ParrotServerIcon" android:backgroundTint="#D8B53E" />
+                            <LinearLayout style="@style/ParrotServerText">
+                                <TextView style="@style/ParrotServerName" android:text="@string/server_generic_name" />
+                                <TextView style="@style/ParrotServerIp" android:text="play.server8.net" />
+                            </LinearLayout>
+                            <TextView style="@style/ParrotServerPlayers" android:text="41/250" />
+                        </LinearLayout>
+                        <LinearLayout style="@style/ParrotServerRow">
+                            <TextView style="@style/ParrotServerRank" android:text="#9" />
+                            <View style="@style/ParrotServerIcon" android:backgroundTint="#3E6FD8" />
+                            <LinearLayout style="@style/ParrotServerText">
+                                <TextView style="@style/ParrotServerName" android:text="@string/server_generic_name" />
+                                <TextView style="@style/ParrotServerIp" android:text="play.server9.net" />
+                            </LinearLayout>
+                            <TextView style="@style/ParrotServerPlayers" android:text="17/140" />
+                        </LinearLayout>
+                        <LinearLayout style="@style/ParrotServerRow">
+                            <TextView style="@style/ParrotServerRank" android:text="#10" />
+                            <View style="@style/ParrotServerIcon" android:backgroundTint="#3E8FD8" />
+                            <LinearLayout style="@style/ParrotServerText">
+                                <TextView style="@style/ParrotServerName" android:text="@string/server_generic_name" />
+                                <TextView style="@style/ParrotServerIp" android:text="play.server10.net" />
+                            </LinearLayout>
+                            <TextView style="@style/ParrotServerPlayers" android:text="6/90" />
+                        </LinearLayout>
+                        <LinearLayout style="@style/ParrotServerRow">
+                            <TextView style="@style/ParrotServerRank" android:text="#11" />
+                            <View style="@style/ParrotServerIcon" android:backgroundTint="#8B5A2B" />
+                            <LinearLayout style="@style/ParrotServerText">
+                                <TextView style="@style/ParrotServerName" android:text="@string/server_generic_name" />
+                                <TextView style="@style/ParrotServerIp" android:text="play.server11.net" />
+                            </LinearLayout>
+                            <TextView style="@style/ParrotServerPlayers" android:text="28/200" />
+                        </LinearLayout>
+                        <LinearLayout style="@style/ParrotServerRow">
+                            <TextView style="@style/ParrotServerRank" android:text="#12" />
+                            <View style="@style/ParrotServerIcon" android:backgroundTint="#7A4FB0" />
+                            <LinearLayout style="@style/ParrotServerText">
+                                <TextView style="@style/ParrotServerName" android:text="@string/server_generic_name" />
+                                <TextView style="@style/ParrotServerIp" android:text="play.server12.net" />
+                            </LinearLayout>
+                            <TextView style="@style/ParrotServerPlayers" android:text="14/160" />
+                        </LinearLayout>
+                        <LinearLayout style="@style/ParrotServerRow">
+                            <TextView style="@style/ParrotServerRank" android:text="#13" />
+                            <View style="@style/ParrotServerIcon" android:backgroundTint="#D8B53E" />
+                            <LinearLayout style="@style/ParrotServerText">
+                                <TextView style="@style/ParrotServerName" android:text="@string/server_generic_name" />
+                                <TextView style="@style/ParrotServerIp" android:text="play.server13.net" />
+                            </LinearLayout>
+                            <TextView style="@style/ParrotServerPlayers" android:text="73/400" />
+                        </LinearLayout>
+                        <LinearLayout style="@style/ParrotServerRow">
+                            <TextView style="@style/ParrotServerRank" android:text="#14" />
+                            <View style="@style/ParrotServerIcon" android:backgroundTint="#3E6FD8" />
+                            <LinearLayout style="@style/ParrotServerText">
+                                <TextView style="@style/ParrotServerName" android:text="@string/server_generic_name" />
+                                <TextView style="@style/ParrotServerIp" android:text="play.server14.net" />
+                            </LinearLayout>
+                            <TextView style="@style/ParrotServerPlayers" android:text="2/80" />
+                        </LinearLayout>
+                        <LinearLayout style="@style/ParrotServerRow">
+                            <TextView style="@style/ParrotServerRank" android:text="#15" />
+                            <View style="@style/ParrotServerIcon" android:backgroundTint="#3E8FD8" />
+                            <LinearLayout style="@style/ParrotServerText">
+                                <TextView style="@style/ParrotServerName" android:text="@string/server_generic_name" />
+                                <TextView style="@style/ParrotServerIp" android:text="play.server15.net" />
+                            </LinearLayout>
+                            <TextView style="@style/ParrotServerPlayers" android:text="50/500" />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
+                </ScrollView>
 
                 <TextView
                     android:id="@+id/parrot_servers_footer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
                     android:text="@string/servers_operational"
                     android:textColor="@color/status_online"
                     android:textSize="@dimen/_10ssp"
@@ -341,10 +435,10 @@
             android:id="@+id/parrot_tools_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_6sdp"
             android:orientation="vertical"
             android:background="@drawable/bg_card_brown"
-            android:padding="@dimen/_10sdp">
+            android:padding="@dimen/_8sdp">
 
             <GridLayout
                 android:id="@+id/parrot_tools_grid"
@@ -373,7 +467,7 @@
             android:id="@+id/parrot_footer_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_6sdp"
             android:orientation="horizontal"
             android:gravity="center_vertical">
 

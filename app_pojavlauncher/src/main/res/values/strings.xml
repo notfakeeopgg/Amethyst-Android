@@ -515,9 +515,10 @@
     <string name="nav_settings" translatable="false">Settings</string>
     <string name="profile_online" translatable="false">Online</string>
     <string name="profile_label" translatable="false">Profile</string>
-    <string name="partner_servers_title" translatable="false">Partner Servers</string>
-    <string name="partner_servers_sub" translatable="false">Tap a server to copy its IP</string>
-    <string name="view_all_servers" translatable="false">View All Servers</string>
+    <string name="partner_servers_title">Partner Servers</string>
+    <string name="partner_servers_sub">Tap a server to copy its IP</string>
+    <string name="view_all_servers">View All Servers</string>
+    <string name="server_generic_name">Server Name</string>
     <string name="tag_version" translatable="false">1.21.4</string>
     <string name="tag_loader" translatable="false">Fabric</string>
     <string name="tag_java" translatable="false">Java 21+</string>
