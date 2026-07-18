@@ -102,7 +102,7 @@ public class MainMenuFragment extends Fragment {
         TextView mNavSettings = view.findViewById(R.id.nav_settings);
         if (mNavProfiles != null) mNavProfiles.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ProfileTypeSelectFragment.class, ProfileTypeSelectFragment.TAG, null));
         if (mNavAccounts != null) mNavAccounts.setOnClickListener(v -> Tools.swapFragment(requireActivity(), SelectAuthFragment.class, SelectAuthFragment.TAG, null));
-        if (mNavSettings != null) mNavSettings.setOnClickListener(v -> Tools.swapFragment(requireActivity(), LauncherPreferenceFragment.class, LauncherPreferenceFragment.TAG, null));
+        if (mNavSettings != null) mNavSettings.setOnClickListener(v -> Tools.swapFragment(requireActivity(), LauncherPreferenceFragment.class, "LauncherPreferenceFragment", null));
         if (mNavPartners != null) mNavPartners.setOnClickListener(v -> {
             View panel = view.findViewById(R.id.servers_panel);
             if (panel != null) panel.performClick();
