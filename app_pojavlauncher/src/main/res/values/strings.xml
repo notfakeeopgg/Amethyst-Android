@@ -529,7 +529,7 @@
     <string name="footer_copyright" translatable="false">© 2026 Parrot Launcher</string>
     <string name="parrot_tab_mods" translatable="false">Mods</string>
     <string name="parrot_mods_hub_title">Content Library</string>
-    <string name="parrot_mods_hub_sub">Browse & install Mods, Resource Packs, Shaders & Worlds from Modrinth & CurseForge</string>
+    <string name="parrot_mods_hub_sub">Browse &amp; install Mods, Resource Packs, Shaders &amp; Worlds from Modrinth &amp; CurseForge</string>
     <string name="parrot_mods_browse">Browse Modrinth / CurseForge</string>
     <string name="parrot_mods_install_profile_title">Install into profile</string>
     <string name="parrot_mods_install_profile_prompt">Choose which game profile this content installs to:</string>
