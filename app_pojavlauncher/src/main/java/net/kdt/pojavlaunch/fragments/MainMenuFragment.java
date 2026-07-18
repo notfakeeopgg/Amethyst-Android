@@ -28,6 +28,9 @@ import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
+import net.kdt.pojavlaunch.fragments.ProfileTypeSelectFragment;
+import net.kdt.pojavlaunch.fragments.SelectAuthFragment;
+import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceFragment;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
@@ -99,7 +102,7 @@ public class MainMenuFragment extends Fragment {
         TextView mNavSettings = view.findViewById(R.id.nav_settings);
         if (mNavProfiles != null) mNavProfiles.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ProfileTypeSelectFragment.class, ProfileTypeSelectFragment.TAG, null));
         if (mNavAccounts != null) mNavAccounts.setOnClickListener(v -> Tools.swapFragment(requireActivity(), SelectAuthFragment.class, SelectAuthFragment.TAG, null));
-        if (mNavSettings != null) mNavSettings.setOnClickListener(v -> Tools.swapFragment(requireActivity(), LauncherSettingsFragment.class, LauncherSettingsFragment.TAG, null));
+        if (mNavSettings != null) mNavSettings.setOnClickListener(v -> Tools.swapFragment(requireActivity(), LauncherPreferenceFragment.class, LauncherPreferenceFragment.TAG, null));
         if (mNavPartners != null) mNavPartners.setOnClickListener(v -> {
             View panel = view.findViewById(R.id.servers_panel);
             if (panel != null) panel.performClick();
