@@ -124,4 +124,15 @@
         <item name="android:textColor">@color/status_online</item>
         <item name="android:textSize">@dimen/_12ssp</item>
     </style>
+
+    <!-- Parrot Client brown dialog + preference theming -->
+    <style name="ParrotDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:background">@drawable/bg_card_brown</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:buttonBarButtonStyle">@style/ParrotDialogButton</item>
+        <item name="colorAccent">@color/accent_warm</item>
+    </style>
+    <style name="ParrotDialogButton" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/accent_warm</item>
+    </style>
 </resources>
