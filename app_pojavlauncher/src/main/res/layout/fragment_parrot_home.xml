@@ -55,7 +55,7 @@
                     <TextView android:id="@+id/parrot_nav_home" style="@style/ParrotNav" android:text="@string/nav_home" android:textColor="@color/accent_warm" />
                     <TextView android:id="@+id/parrot_nav_profiles" style="@style/ParrotNav" android:text="@string/nav_profiles" />
                     <TextView android:id="@+id/parrot_nav_accounts" style="@style/ParrotNav" android:text="@string/nav_accounts" />
-                    <TextView android:id="@+id/parrot_nav_partners" style="@style/ParrotNav" android:text="@string/nav_partners" />
+                    <TextView android:id="@+id/parrot_nav_library" style="@style/ParrotNav" android:text="@string/nav_library" />
                     <TextView android:id="@+id/parrot_nav_settings" style="@style/ParrotNav" android:text="@string/nav_settings" />
                 </LinearLayout>
             </HorizontalScrollView>
@@ -90,297 +90,109 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- ===== Two-card row ===== -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:weightSum="2"
-            android:layout_marginTop="@dimen/_6sdp">
-
-            <!-- ===== Profile card (left) ===== -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/parrot_profile_card"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginEnd="@dimen/_4sdp"
-                android:background="@drawable/bg_card_brown"
-                android:padding="@dimen/_12sdp">
-
-                <ImageView
-                    android:id="@+id/parrot_profile_avatar"
-                    android:layout_width="@dimen/_56sdp"
-                    android:layout_height="@dimen/_56sdp"
-                    android:src="@drawable/parrot_logo"
-                    android:background="@drawable/bg_circle"
-                    android:backgroundTint="@color/brown_primary"
-                    android:padding="@dimen/_4sdp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/parrot_profile_username" />
-
-                <TextView
-                    android:id="@+id/parrot_profile_username"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:text="@string/profile_default_user"
-                    android:textColor="@color/primary_text"
-                    android:textSize="@dimen/_16ssp"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="@id/parrot_profile_avatar"
-                    app:layout_constraintStart_toEndOf="@id/parrot_profile_avatar"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-                <TextView
-                    android:id="@+id/parrot_profile_online"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:text="@string/profile_online"
-                    android:textColor="@color/status_online"
-                    android:textSize="@dimen/_11ssp"
-                    android:drawableStart="@drawable/bg_circle"
-                    android:drawableTint="@color/status_online"
-                    android:drawablePadding="@dimen/_4sdp"
-                    app:layout_constraintTop_toBottomOf="@id/parrot_profile_username"
-                    app:layout_constraintStart_toEndOf="@id/parrot_profile_avatar" />
-
-                <TextView
-                    android:id="@+id/parrot_profile_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:text="@string/profile_label"
-                    android:textColor="@color/secondary_text"
-                    android:textSize="@dimen/_12ssp"
-                    android:drawableStart="@drawable/ic_folder"
-                    android:drawableTint="@color/accent_warm"
-                    android:drawablePadding="@dimen/_6sdp"
-                    app:layout_constraintTop_toBottomOf="@id/parrot_profile_avatar"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-                <com.kdt.mcgui.mcVersionSpinner
-                    android:id="@+id/parrot_version_spinner"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_44sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@drawable/bg_chip_brown"
-                    android:drawableEnd="@drawable/spinner_arrow"
-                    app:drawableEndSize="@dimen/padding_heavy"
-                    app:drawableStartIntegerScaling="true"
-                    app:drawableStartSize="@dimen/_30sdp"
-                    app:drawableEndPadding="@dimen/_8sdp"
-                    app:layout_constraintTop_toBottomOf="@id/parrot_profile_name"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/parrot_edit_profile"
-                    app:layout_constraintBottom_toTopOf="@id/parrot_play" />
-
-                <ImageButton
-                    android:id="@+id/parrot_edit_profile"
-                    android:layout_width="@dimen/_44sdp"
-                    android:layout_height="@dimen/_44sdp"
-                    android:layout_marginStart="@dimen/_6sdp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:src="@drawable/ic_edit_profile"
-                    app:layout_constraintTop_toTopOf="@id/parrot_version_spinner"
-                    app:layout_constraintBottom_toBottomOf="@id/parrot_version_spinner"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-                <com.kdt.mcgui.MineButton
-                    android:id="@+id/parrot_play"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_52sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@drawable/bg_play_gradient"
-                    android:textAllCaps="true"
-                    android:text="@string/main_play"
-                    android:textColor="#FFFFFF"
-                    android:textSize="@dimen/_15ssp"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toBottomOf="@id/parrot_version_spinner"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- ===== Partner servers panel (right) ===== -->
-            <LinearLayout
-                android:id="@+id/parrot_servers_panel"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginStart="@dimen/_4sdp"
-                android:orientation="vertical"
-                android:background="@drawable/bg_servers_panel"
-                android:padding="@dimen/_12sdp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/parrot_servers_title"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/partner_servers_title"
-                        android:textColor="@color/accent_warm"
-                        android:textSize="@dimen/_14ssp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/parrot_servers_viewall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/view_all_servers"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="@dimen/_11ssp" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/parrot_servers_sub"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:layout_marginBottom="@dimen/_6sdp"
-                    android:text="@string/partner_servers_sub"
-                    android:textColor="@color/secondary_text"
-                    android:textSize="@dimen/_10ssp" />
-
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:fillViewport="true"
-                    android:scrollbars="vertical">
-
-                    <LinearLayout
-                        android:id="@+id/parrot_servers_list"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:showDividers="middle"
-                        android:divider="@color/divider">
-
-                        <LinearLayout style="@style/ParrotServerRow">
-                            <TextView style="@style/ParrotServerRank" android:text="#1" />
-                            <View style="@style/ParrotServerIcon" android:backgroundTint="#8B5A2B" />
-                            <LinearLayout style="@style/ParrotServerText">
-                                <TextView style="@style/ParrotServerName" android:text="@string/server_generic_name" />
-                                <TextView style="@style/ParrotServerIp" android:text="play.server1.net" />
-                            </LinearLayout>
-                            <TextView style="@style/ParrotServerPlayers" android:text="12/100" />
-                        </LinearLayout>
-                        <LinearLayout style="@style/ParrotServerRow">
-                            <TextView style="@style/ParrotServerRank" android:text="#2" />
-                            <View style="@style/ParrotServerIcon" android:backgroundTint="#7A4FB0" />
-                            <LinearLayout style="@style/ParrotServerText">
-                                <TextView style="@style/ParrotServerName" android:text="@string/server_generic_name" />
-                                <TextView style="@style/ParrotServerIp" android:text="play.server2.net" />
-                            </LinearLayout>
-                            <TextView style="@style/ParrotServerPlayers" android:text="34/200" />
-                        </LinearLayout>
-                        <LinearLayout style="@style/ParrotServerRow">
-                            <TextView style="@style/ParrotServerRank" android:text="#3" />
-                            <View style="@style/ParrotServerIcon" android:backgroundTint="#D8B53E" />
-                            <LinearLayout style="@style/ParrotServerText">
-                                <TextView style="@style/ParrotServerName" android:text="@string/server_generic_name" />
-                                <TextView style="@style/ParrotServerIp" android:text="play.server3.net" />
-                            </LinearLayout>
-                            <TextView style="@style/ParrotServerPlayers" android:text="8/150" />
-                        </LinearLayout>
-                        <LinearLayout style="@style/ParrotServerRow">
-                            <TextView style="@style/ParrotServerRank" android:text="#4" />
-                            <View style="@style/ParrotServerIcon" android:backgroundTint="#3E6FD8" />
-                            <LinearLayout style="@style/ParrotServerText">
-                                <TextView style="@style/ParrotServerName" android:text="@string/server_generic_name" />
-                                <TextView style="@style/ParrotServerIp" android:text="play.server4.net" />
-                            </LinearLayout>
-                            <TextView style="@style/ParrotServerPlayers" android:text="55/300" />
-                        </LinearLayout>
-                        <LinearLayout style="@style/ParrotServerRow">
-                            <TextView style="@style/ParrotServerRank" android:text="#5" />
-                            <View style="@style/ParrotServerIcon" android:backgroundTint="#3E8FD8" />
-                            <LinearLayout style="@style/ParrotServerText">
-                                <TextView style="@style/ParrotServerName" android:text="@string/server_generic_name" />
-                                <TextView style="@style/ParrotServerIp" android:text="play.server5.net" />
-                            </LinearLayout>
-                            <TextView style="@style/ParrotServerPlayers" android:text="3/120" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </ScrollView>
-
-                <TextView
-                    android:id="@+id/parrot_servers_footer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    android:text="@string/servers_operational"
-                    android:textColor="@color/status_online"
-                    android:textSize="@dimen/_10ssp"
-                    android:drawableStart="@drawable/bg_circle"
-                    android:drawableTint="@color/status_online"
-                    android:drawablePadding="@dimen/_4sdp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- ===== Content Library / Mods card (full width) ===== -->
-        <LinearLayout
-            android:id="@+id/parrot_mods_card"
+        <!-- ===== Profile card ===== -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/parrot_profile_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_6sdp"
-            android:orientation="vertical"
             android:background="@drawable/bg_card_brown"
             android:padding="@dimen/_12sdp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/parrot_mods_hub_title"
-                    android:textColor="@color/accent_warm"
-                    android:textSize="@dimen/_14ssp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/parrot_mods_open"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/parrot_mods_browse"
-                    android:textColor="@color/accent_warm"
-                    android:textSize="@dimen/_11ssp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:padding="@dimen/_4sdp" />
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/parrot_profile_avatar"
+                android:layout_width="@dimen/_56sdp"
+                android:layout_height="@dimen/_56sdp"
+                android:src="@drawable/parrot_logo"
+                android:background="@drawable/bg_circle"
+                android:backgroundTint="@color/brown_primary"
+                android:padding="@dimen/_4sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/parrot_profile_username"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:layout_marginBottom="@dimen/_8sdp"
-                android:text="@string/parrot_mods_hub_sub"
-                android:textColor="@color/secondary_text"
-                android:textSize="@dimen/_10ssp" />
+                android:layout_marginStart="@dimen/_10sdp"
+                android:text="@string/profile_default_user"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/_16ssp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/parrot_profile_avatar"
+                app:layout_constraintStart_toEndOf="@id/parrot_profile_avatar"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/parrot_profile_online"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="4">
-                <TextView style="@style/ParrotCatChip" android:id="@+id/parrot_cat_mods" android:text="@string/parrot_mods_category_mods" />
-                <TextView style="@style/ParrotCatChip" android:id="@+id/parrot_cat_resourcepacks" android:text="@string/parrot_mods_category_resourcepacks" />
-                <TextView style="@style/ParrotCatChip" android:id="@+id/parrot_cat_shaders" android:text="@string/parrot_mods_category_shaders" />
-                <TextView style="@style/ParrotCatChip" android:id="@+id/parrot_cat_worlds" android:text="@string/parrot_mods_category_worlds" />
-            </LinearLayout>
-        </LinearLayout>
+                android:layout_marginStart="@dimen/_10sdp"
+                android:text="@string/profile_online"
+                android:textColor="@color/status_online"
+                android:textSize="@dimen/_11ssp"
+                android:drawableStart="@drawable/bg_circle"
+                android:drawableTint="@color/status_online"
+                android:drawablePadding="@dimen/_4sdp"
+                app:layout_constraintTop_toBottomOf="@id/parrot_profile_username"
+                app:layout_constraintStart_toEndOf="@id/parrot_profile_avatar" />
+
+            <TextView
+                android:id="@+id/parrot_profile_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:text="@string/profile_label"
+                android:textColor="@color/secondary_text"
+                android:textSize="@dimen/_12ssp"
+                android:drawableStart="@drawable/ic_folder"
+                android:drawableTint="@color/accent_warm"
+                android:drawablePadding="@dimen/_6sdp"
+                app:layout_constraintTop_toBottomOf="@id/parrot_profile_avatar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <com.kdt.mcgui.mcVersionSpinner
+                android:id="@+id/parrot_version_spinner"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_44sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_chip_brown"
+                android:drawableEnd="@drawable/spinner_arrow"
+                app:drawableEndSize="@dimen/padding_heavy"
+                app:drawableStartIntegerScaling="true"
+                app:drawableStartSize="@dimen/_30sdp"
+                app:drawableEndPadding="@dimen/_8sdp"
+                app:layout_constraintTop_toBottomOf="@id/parrot_profile_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/parrot_edit_profile" />
+
+            <ImageButton
+                android:id="@+id/parrot_edit_profile"
+                android:layout_width="@dimen/_44sdp"
+                android:layout_height="@dimen/_44sdp"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_edit_profile"
+                app:layout_constraintTop_toTopOf="@id/parrot_version_spinner"
+                app:layout_constraintBottom_toBottomOf="@id/parrot_version_spinner"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <com.kdt.mcgui.MineButton
+                android:id="@+id/parrot_play"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_52sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_play_gradient"
+                android:textAllCaps="true"
+                android:text="@string/main_play"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/parrot_version_spinner"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- ===== Tools card ===== -->
         <LinearLayout

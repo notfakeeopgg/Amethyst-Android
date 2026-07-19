@@ -511,32 +511,16 @@
     <string name="nav_home" translatable="false">Home</string>
     <string name="nav_profiles" translatable="false">Profiles</string>
     <string name="nav_accounts" translatable="false">Accounts</string>
-    <string name="nav_partners" translatable="false">Partners</string>
+    <string name="nav_library" translatable="false">Library</string>
     <string name="nav_settings" translatable="false">Settings</string>
     <string name="profile_online" translatable="false">Online</string>
     <string name="profile_label" translatable="false">Profile</string>
     <string name="profile_default_user" translatable="false">Player</string>
-    <string name="partner_servers_title">Partner Servers</string>
-    <string name="partner_servers_sub">Tap a server to copy its IP</string>
-    <string name="view_all_servers">View All Servers</string>
-    <string name="server_generic_name">Server Name</string>
-    <string name="tag_version" translatable="false">1.21.4</string>
-    <string name="tag_loader" translatable="false">Fabric</string>
-    <string name="tag_java" translatable="false">Java 21+</string>
-    <string name="tag_ram" translatable="false">3.5GB</string>
     <string name="servers_operational" translatable="false">All systems operational</string>
 
     <string name="footer_copyright" translatable="false">© 2026 Parrot Launcher</string>
-    <string name="parrot_tab_mods" translatable="false">Mods</string>
-    <string name="parrot_mods_hub_title">Content Library</string>
-    <string name="parrot_mods_hub_sub">Browse &amp; install Mods, Resource Packs, Shaders &amp; Worlds from Modrinth &amp; CurseForge</string>
-    <string name="parrot_mods_browse">Browse Modrinth / CurseForge</string>
     <string name="parrot_mods_install_profile_title">Install into profile</string>
     <string name="parrot_mods_install_profile_prompt">Choose which game profile this content installs to:</string>
-    <string name="parrot_mods_category_mods">Mods</string>
-    <string name="parrot_mods_category_resourcepacks">Resource Packs</string>
-    <string name="parrot_mods_category_shaders">Shaders</string>
-    <string name="parrot_mods_category_worlds">Worlds</string>
     <string name="footer_version" translatable="false">Version 1.0</string>
 
 </resources>

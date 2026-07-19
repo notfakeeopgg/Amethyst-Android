@@ -42,7 +42,7 @@ import net.kdt.pojavlaunch.PojavProfile;
 import java.io.File;
 
 /**
- * Parrot Client - genuine from-scratch home screen.
+ * Parrot Launcher - genuine from-scratch home screen.
  * Fires the engine-agnostic launch signal (ExtraCore.LAUNCH_GAME) and routes to the
  * existing profile/account/settings screens. No Amethyst view IDs are reused.
  */
@@ -89,17 +89,14 @@ public class ParrotHomeFragment extends Fragment {
 
         TextView navProfiles = view.findViewById(R.id.parrot_nav_profiles);
         TextView navAccounts = view.findViewById(R.id.parrot_nav_accounts);
-        TextView navPartners = view.findViewById(R.id.parrot_nav_partners);
+        TextView navLibrary = view.findViewById(R.id.parrot_nav_library);
         TextView navSettings = view.findViewById(R.id.parrot_nav_settings);
 
         // ----- nav -----
         if (navProfiles != null) navProfiles.setOnClickListener(v -> Tools.swapFragment(requireActivity(), ProfileTypeSelectFragment.class, ProfileTypeSelectFragment.TAG, null));
         if (navAccounts != null) navAccounts.setOnClickListener(v -> Tools.swapFragment(requireActivity(), SelectAuthFragment.class, SelectAuthFragment.TAG, null));
         if (navSettings != null) navSettings.setOnClickListener(v -> Tools.swapFragment(requireActivity(), LauncherPreferenceFragment.class, "LauncherPreferenceFragment", null));
-        if (navPartners != null) navPartners.setOnClickListener(v -> {
-            View panel = view.findViewById(R.id.parrot_servers_panel);
-            if (panel != null) panel.performClick();
-        });
+        if (navLibrary != null) navLibrary.setOnClickListener(v -> openModBrowser(null));
 
         // ----- tools -----
         mWikiButton.setOnClickListener(v -> Tools.openURL(requireActivity(), Tools.URL_HOME));
@@ -134,49 +131,6 @@ public class ParrotHomeFragment extends Fragment {
                 hasNoOnlineProfileDialog(getActivity(), getString(R.string.demo_unsupported), getString(R.string.change_account));
             } else openPath(v.getContext(), getCurrentProfileDirectory(), false);
         });
-
-        // ----- Content Library / Mods hub -----
-        TextView modsOpen = view.findViewById(R.id.parrot_mods_open);
-        View catMods = view.findViewById(R.id.parrot_cat_mods);
-        View catRp = view.findViewById(R.id.parrot_cat_resourcepacks);
-        View catShaders = view.findViewById(R.id.parrot_cat_shaders);
-        View catWorlds = view.findViewById(R.id.parrot_cat_worlds);
-        if (modsOpen != null) modsOpen.setOnClickListener(v -> openModBrowser(null));
-        if (catMods != null) catMods.setOnClickListener(v -> openModBrowser("mod"));
-        if (catRp != null) catRp.setOnClickListener(v -> openModBrowser("resourcepack"));
-        if (catShaders != null) catShaders.setOnClickListener(v -> openModBrowser("shader"));
-        if (catWorlds != null) catWorlds.setOnClickListener(v -> openModBrowser("world"));
-        ViewGroup serversList = view.findViewById(R.id.parrot_servers_list);
-        if (serversList != null) {
-            for (int i = 0; i < serversList.getChildCount(); i++) {
-                View row = serversList.getChildAt(i);
-                TextView ipView = findIpView(row);
-                if (ipView != null) {
-                    final TextView finalIp = ipView;
-                    row.setOnClickListener(v -> {
-                        String ip = finalIp.getText().toString();
-                        ClipboardManager cm = (ClipboardManager) requireContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                        if (cm != null) {
-                            cm.setPrimaryClip(android.content.ClipData.newPlainText("server_ip", ip));
-                            Toast.makeText(requireContext(), "Copied: " + ip, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            }
-        }
-    }
-
-    private TextView findIpView(View row) {
-        if (row instanceof TextView && ((TextView) row).getText() != null && ((TextView) row).getText().toString().contains(".")) {
-            return (TextView) row;
-        }
-        if (row instanceof ViewGroup) {
-            for (int i = 0; i < ((ViewGroup) row).getChildCount(); i++) {
-                TextView found = findIpView(((ViewGroup) row).getChildAt(i));
-                if (found != null) return found;
-            }
-        }
-        return null;
     }
 
     @Override
@@ -202,9 +156,9 @@ public class ParrotHomeFragment extends Fragment {
     }
 
     /**
-     * Open the existing Modrinth / CurseForge browser (SearchModFragment).
-     * First asks which profile to install into, then switches to that profile so
-     * the installed mod / resource pack / shader / world lands in the right place.
+     * Open the existing Modrinth / CurseForge browser (SearchModFragment) — the "Library".
+     * First asks which profile to install into, then switches to that profile so the
+     * installed mod / resource pack / shader / world lands in the right place.
      * @param category optional category hint ("mod", "resourcepack", "shader", "world")
      */
     private void openModBrowser(String category) {
@@ -215,14 +169,24 @@ public class ParrotHomeFragment extends Fragment {
             return;
         }
         java.util.Map<String, MinecraftProfile> profiles = LauncherProfiles.mainProfileJson.profiles;
-        CharSequence[] names = new CharSequence[profiles.size()];
-        java.util.List<String> ids = new java.util.ArrayList<>(profiles.keySet());
+        final java.util.List<String> ids = new java.util.ArrayList<>(profiles.keySet());
+        final CharSequence[] names = new CharSequence[ids.size()];
         for (int i = 0; i < ids.size(); i++) names[i] = ids.get(i);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), R.style.ParrotDialogTheme);
         builder.setTitle(R.string.parrot_mods_install_profile_title);
         builder.setMessage(R.string.parrot_mods_install_profile_prompt);
-        builder.setItems(names, (dialog, which) -> {
+        // Custom list adapter so items are visible on the dark theme (default alert list text is black).
+        builder.setAdapter(new android.widget.ArrayAdapter<CharSequence>(requireContext(),
+                android.R.layout.simple_list_item_1, android.R.id.text1, names) {
+            @Override
+            public android.view.View getView(int position, android.view.View convertView, android.view.ViewGroup parent) {
+                android.view.View v = super.getView(position, convertView, parent);
+                TextView t = v.findViewById(android.R.id.text1);
+                if (t != null) t.setTextColor(getResources().getColor(R.color.primary_text));
+                return v;
+            }
+        }, (dialog, which) -> {
             String chosen = ids.get(which);
             LauncherPreferences.DEFAULT_PREF.edit()
                     .putString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, chosen).apply();

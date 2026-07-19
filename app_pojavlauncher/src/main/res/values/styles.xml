@@ -142,6 +142,7 @@
     <style name="ParrotDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
         <item name="android:background">@drawable/bg_card_brown</item>
         <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textColorAlertDialogListItem">@color/primary_text</item>
         <item name="android:buttonBarButtonStyle">@style/ParrotDialogButton</item>
         <item name="colorAccent">@color/accent_warm</item>
     </style>
