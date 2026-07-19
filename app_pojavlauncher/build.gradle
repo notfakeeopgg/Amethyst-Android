@@ -100,7 +100,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "org.angelauramc.amethyst"
+        applicationId "org.surgex.parrotlauncher"
         minSdkVersion 21
         targetSdkVersion 34
         versionCode 10000000
@@ -124,9 +124,9 @@ android {
             signingConfig signingConfigs.customDebug
             resValue "string", "app_name", "Parrot Launcher (Debug)"
             resValue "string", "app_short_name", "Parrot Launcher (Debug)"
-            resValue 'string', 'application_package', 'org.angelauramc.amethyst.debug'
-            resValue 'string', 'storageProviderAuthorities', 'org.angelauramc.amethyst.scoped.gamefolder.debug'
-            resValue 'string', 'shareProviderAuthority', 'org.angelauramc.amethyst.scoped.controlfolder.debug'
+            resValue 'string', 'application_package', 'org.surgex.parrotlauncher.debug'
+            resValue 'string', 'storageProviderAuthorities', 'org.surgex.parrotlauncher.scoped.gamefolder.debug'
+            resValue 'string', 'shareProviderAuthority', 'org.surgex.parrotlauncher.scoped.controlfolder.debug'
         }
         proguard {
             initWith debug
@@ -148,8 +148,8 @@ android {
             // debuggable = true
             resValue "string", "app_name", "Parrot Launcher"
             resValue "string", "app_short_name", "Parrot Launcher"
-            resValue 'string', 'storageProviderAuthorities', 'org.angelauramc.amethyst.scoped.gamefolder'
-            resValue 'string', 'application_package', 'org.angelauramc.amethyst'
+            resValue 'string', 'storageProviderAuthorities', 'org.surgex.parrotlauncher.scoped.gamefolder'
+            resValue 'string', 'application_package', 'org.surgex.parrotlauncher'
         }
         gplay {
             initWith release

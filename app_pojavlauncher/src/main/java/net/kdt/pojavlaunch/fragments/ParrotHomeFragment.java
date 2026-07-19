@@ -162,41 +162,9 @@ public class ParrotHomeFragment extends Fragment {
      * @param category optional category hint ("mod", "resourcepack", "shader", "world")
      */
     private void openModBrowser(String category) {
-        LauncherProfiles.load();
-        if (LauncherProfiles.mainProfileJson == null || LauncherProfiles.mainProfileJson.profiles == null
-                || LauncherProfiles.mainProfileJson.profiles.isEmpty()) {
-            Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, null);
-            return;
-        }
-        java.util.Map<String, MinecraftProfile> profiles = LauncherProfiles.mainProfileJson.profiles;
-        final java.util.List<String> ids = new java.util.ArrayList<>(profiles.keySet());
-        final CharSequence[] names = new CharSequence[ids.size()];
-        for (int i = 0; i < ids.size(); i++) {
-            MinecraftProfile p = profiles.get(ids.get(i));
-            String display = (p != null && p.name != null && !p.name.isEmpty()) ? p.name : ids.get(i);
-            names[i] = display;
-        }
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), R.style.ParrotDialogTheme);
-        builder.setTitle(R.string.parrot_mods_install_profile_title);
-        builder.setMessage(R.string.parrot_mods_install_profile_prompt);
-        // Custom list adapter so items are visible on the dark theme (default alert list text is black).
-        builder.setAdapter(new android.widget.ArrayAdapter<CharSequence>(requireContext(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, names) {
-            @Override
-            public android.view.View getView(int position, android.view.View convertView, android.view.ViewGroup parent) {
-                android.view.View v = super.getView(position, convertView, parent);
-                TextView t = v.findViewById(android.R.id.text1);
-                if (t != null) t.setTextColor(getResources().getColor(R.color.primary_text));
-                return v;
-            }
-        }, (dialog, which) -> {
-            String chosen = ids.get(which);
-            LauncherPreferences.DEFAULT_PREF.edit()
-                    .putString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, chosen).apply();
-            Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, null);
-        });
-        builder.setNegativeButton(android.R.string.cancel, null);
-        builder.show();
+        // Open the Library immediately — the category tabs live there.
+        // The profile picker is shown on-demand (when installing), not as a gate,
+        // so a missing/empty profile list can never block the Library from showing.
+        Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG, null);
     }
 }

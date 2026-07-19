@@ -1,12 +1,15 @@
 package net.kdt.pojavlaunch.modloaders.modpacks;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -31,10 +34,16 @@ import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchFilters;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchResult;
+import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
+import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
+import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.concurrent.Future;
@@ -175,7 +184,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     mExtendedSpinner = mExtendedLayout.findViewById(R.id.mod_extended_version_spinner);
                     mExtendedErrorTextView = mExtendedLayout.findViewById(R.id.mod_extended_error_textview);
 
-                    mExtendedButton.setOnClickListener(v1 -> mModpackApi.handleInstallation(
+                    mExtendedButton.setOnClickListener(v1 -> showInstallProfilePicker(
                             mExtendedButton.getContext().getApplicationContext(),
                             mModDetail,
                             mExtendedSpinner.getSelectedItemPosition()));
@@ -405,5 +414,47 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         int ERROR_NO_RESULTS = 1;
         void onSearchFinished();
         void onSearchError(int error);
+    }
+
+    /**
+     * Ask the user which game profile this content should install into, switch to that
+     * profile so the file lands in the right place, then start the installation.
+     */
+    private void showInstallProfilePicker(Context context, ModDetail modDetail, int selectedVersion) {
+        LauncherProfiles.load();
+        if (LauncherProfiles.mainProfileJson == null || LauncherProfiles.mainProfileJson.profiles == null
+                || LauncherProfiles.mainProfileJson.profiles.isEmpty()) {
+            // No profiles exist yet — just install into the default location.
+            mModpackApi.handleInstallation(context, modDetail, selectedVersion);
+            return;
+        }
+        Map<String, MinecraftProfile> profiles = LauncherProfiles.mainProfileJson.profiles;
+        List<String> ids = new ArrayList<>(profiles.keySet());
+        CharSequence[] names = new CharSequence[ids.size()];
+        for (int i = 0; i < ids.size(); i++) {
+            MinecraftProfile p = profiles.get(ids.get(i));
+            String display = (p != null && p.name != null && !p.name.isEmpty()) ? p.name : ids.get(i);
+            names[i] = display;
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.ParrotDialogTheme);
+        builder.setTitle(R.string.parrot_mods_install_profile_title);
+        builder.setMessage(R.string.parrot_mods_install_profile_prompt);
+        builder.setAdapter(new ArrayAdapter<CharSequence>(context,
+                android.R.layout.simple_list_item_1, android.R.id.text1, names) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View v = super.getView(position, convertView, parent);
+                TextView t = v.findViewById(android.R.id.text1);
+                if (t != null) t.setTextColor(context.getResources().getColor(R.color.primary_text));
+                return v;
+            }
+        }, (dialog, which) -> {
+            String chosen = ids.get(which);
+            LauncherPreferences.DEFAULT_PREF.edit()
+                    .putString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, chosen).apply();
+            mModpackApi.handleInstallation(context, modDetail, selectedVersion);
+        });
+        builder.setNegativeButton(android.R.string.cancel, null);
+        builder.show();
     }
 }
