@@ -171,7 +171,11 @@ public class ParrotHomeFragment extends Fragment {
         java.util.Map<String, MinecraftProfile> profiles = LauncherProfiles.mainProfileJson.profiles;
         final java.util.List<String> ids = new java.util.ArrayList<>(profiles.keySet());
         final CharSequence[] names = new CharSequence[ids.size()];
-        for (int i = 0; i < ids.size(); i++) names[i] = ids.get(i);
+        for (int i = 0; i < ids.size(); i++) {
+            MinecraftProfile p = profiles.get(ids.get(i));
+            String display = (p != null && p.name != null && !p.name.isEmpty()) ? p.name : ids.get(i);
+            names[i] = display;
+        }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), R.style.ParrotDialogTheme);
         builder.setTitle(R.string.parrot_mods_install_profile_title);

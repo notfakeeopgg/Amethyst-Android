@@ -100,7 +100,30 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         });
         mFilterButton.setOnClickListener(v -> displayFilterDialog());
 
+        // Category tabs: Mods / Resource Packs / Shaders / Worlds
+        View catMod = view.findViewById(R.id.cat_mod);
+        View catRp = view.findViewById(R.id.cat_resourcepack);
+        View catSh = view.findViewById(R.id.cat_shader);
+        View catWd = view.findViewById(R.id.cat_world);
+        final android.widget.TextView[] catViews = { (android.widget.TextView) catMod, (android.widget.TextView) catRp, (android.widget.TextView) catSh, (android.widget.TextView) catWd };
+        final String[] catTypes = { SearchFilters.TYPE_MOD, SearchFilters.TYPE_RESOURCEPACK, SearchFilters.TYPE_SHADER, SearchFilters.TYPE_WORLD };
+        for (int i = 0; i < catViews.length; i++) {
+            final int idx = i;
+            catViews[i].setOnClickListener(v -> selectCategory(catViews, catTypes, idx));
+        }
+        selectCategory(catViews, catTypes, 0); // default: Mods
+
         searchMods(null);
+    }
+
+    private void selectCategory(android.widget.TextView[] catViews, String[] catTypes, int idx) {
+        mSearchFilters.isModpack = false;
+        mSearchFilters.projectType = catTypes[idx];
+        for (int i = 0; i < catViews.length; i++) {
+            catViews[i].setSelected(i == idx);
+            catViews[i].setTextColor(i == idx ? getResources().getColor(R.color.accent_warm) : getResources().getColor(R.color.secondary_text));
+        }
+        searchMods(mSearchEditText.getText().toString());
     }
 
     @Override

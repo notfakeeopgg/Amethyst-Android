@@ -54,6 +54,10 @@ public class CurseforgeApi implements ModpackApi{
 
     @Override
     public SearchResult searchMod(SearchFilters searchFilters, SearchResult previousPageResult) {
+        // CurseForge is only reliable for mods / modpacks through this code path.
+        if(!searchFilters.isModpack && !SearchFilters.TYPE_MOD.equals(searchFilters.projectType))
+            return new CurseforgeSearchResult();
+
         CurseforgeSearchResult curseforgeSearchResult = (CurseforgeSearchResult) previousPageResult;
 
         HashMap<String, Object> params = new HashMap<>();
@@ -84,6 +88,7 @@ public class CurseforgeApi implements ModpackApi{
             }
             ModItem modItem = new ModItem(Constants.SOURCE_CURSEFORGE,
                     searchFilters.isModpack,
+                    searchFilters.isModpack ? SearchFilters.TYPE_MODPACK : SearchFilters.TYPE_MOD,
                     dataElement.get("id").getAsString(),
                     dataElement.get("name").getAsString(),
                     dataElement.get("summary").getAsString(),
@@ -136,8 +141,13 @@ public class CurseforgeApi implements ModpackApi{
 
     @Override
     public ModLoader installMod(ModDetail modDetail, int selectedVersion) throws IOException{
-        //TODO considering only modpacks for now
-        return ModpackInstaller.installModpack(modDetail, selectedVersion, this::installCurseforgeZip);
+        if(modDetail.isModpack) {
+            //TODO considering only modpacks for now
+            return ModpackInstaller.installModpack(modDetail, selectedVersion, this::installCurseforgeZip);
+        }
+        String versionUrl = modDetail.versionUrls[selectedVersion];
+        String versionHash = modDetail.versionHashes[selectedVersion];
+        return ModpackInstaller.installStandaloneFile(modDetail, versionUrl, versionHash);
     }
 
     @Override

@@ -174,4 +174,54 @@ public class ModpackInstaller {
 interface InstallFunction {
         ModLoader installModpack(File modpackFile, File instanceDestination) throws IOException;
     }
+
+    /**
+     * Install a single-file content item (mod / resource pack / shader / world) into the
+     * currently selected profile's matching subfolder. Returns null because no modloader change
+     * is required; the game picks the file up on next launch.
+     */
+    public static ModLoader installStandaloneFile(ModDetail modDetail, String versionUrl, String versionHash) throws IOException {
+        if(versionUrl == null) return null;
+        LauncherProfiles.load();
+        MinecraftProfile profile = LauncherProfiles.getCurrentProfile();
+        File gameDir = (profile != null) ? Tools.getGameDirPath(profile) : new File(Tools.DIR_GAME_NEW);
+
+        String subfolder;
+        switch (modDetail.projectType) {
+            case SearchFilters.TYPE_RESOURCEPACK: subfolder = "resourcepacks"; break;
+            case SearchFilters.TYPE_SHADER:       subfolder = "shaderpacks"; break;
+            case SearchFilters.TYPE_WORLD:       subfolder = "saves"; break;
+            case SearchFilters.TYPE_MOD:
+            default:                             subfolder = "mods"; break;
+        }
+        File destDir = new File(gameDir, subfolder);
+        if(!destDir.exists() && !destDir.mkdirs()) throw new IOException("Failed to create " + destDir.getAbsolutePath());
+
+        String fileName = modDetail.title.replaceAll("[\\\\/:*?\"<>| \\t\\n]", "_") + "_" +
+                (modDetail.versionNames != null && modDetail.versionNames.length > 0 ? modDetail.versionNames[0].replaceAll("[\\\\/:*?\"<>| \\t\\n]", "_") : "");
+        // Preserve the original file extension (mods are .jar, packs/shaders/worlds are usually .zip)
+        String urlPath = versionUrl;
+        int q = urlPath.indexOf('?'); if (q >= 0) urlPath = urlPath.substring(0, q);
+        int slash = urlPath.lastIndexOf('/');
+        String ext = ".jar";
+        if (slash >= 0) {
+            String lastSeg = urlPath.substring(slash + 1);
+            int dot = lastSeg.lastIndexOf('.');
+            if (dot > 0) ext = lastSeg.substring(dot).toLowerCase();
+        }
+        File outFile = new File(destDir, fileName + ext);
+
+        if(versionHash != null) {
+            DownloadUtils.ensureSha1(outFile, versionHash, (Callable<Void>) () -> {
+                DownloadUtils.downloadFileMonitored(versionUrl, outFile, new byte[8192],
+                        new DownloaderProgressWrapper(R.string.modpack_download_downloading_mods, ProgressLayout.INSTALL_MODPACK));
+                return null;
+            });
+        } else {
+            DownloadUtils.downloadFileMonitored(versionUrl, outFile, new byte[8192],
+                    new DownloaderProgressWrapper(R.string.modpack_download_downloading_mods, ProgressLayout.INSTALL_MODPACK));
+        }
+        ProgressLayout.clearProgress(ProgressLayout.INSTALL_MODPACK);
+        return null;
+    }
 }

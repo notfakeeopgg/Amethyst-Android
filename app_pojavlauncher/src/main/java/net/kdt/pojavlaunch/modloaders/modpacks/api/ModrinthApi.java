@@ -49,9 +49,11 @@ public class ModrinthApi implements ModpackApi{
         HashMap<String, Object> params = new HashMap<>();
         StringBuilder facetString = new StringBuilder();
         facetString.append("[");
-        facetString.append(String.format("[\"project_type:%s\"]", searchFilters.isModpack ? "modpack" : "mod"));
+        String projectType = searchFilters.isModpack ? SearchFilters.TYPE_MODPACK : searchFilters.projectType;
+        if(projectType == null || projectType.isEmpty()) projectType = SearchFilters.TYPE_MOD;
+        facetString.append(String.format("[\"project_type:%s\"]", projectType));
         if(searchFilters.mcVersion != null && !searchFilters.mcVersion.isEmpty())
-            facetString.append(String.format(",[\"versions:%s\"]", searchFilters.mcVersion));
+            facetString.append(String.format(",[\\\"versions:%s\\\"]", searchFilters.mcVersion));
         facetString.append("]");
         params.put("facets", facetString.toString());
         params.put("query", searchFilters.name);
@@ -68,9 +70,11 @@ public class ModrinthApi implements ModpackApi{
         ModItem[] items = new ModItem[responseHits.size()];
         for(int i=0; i<responseHits.size(); ++i){
             JsonObject hit = responseHits.get(i).getAsJsonObject();
+            String pt = hit.get("project_type").getAsString();
             items[i] = new ModItem(
                     Constants.SOURCE_MODRINTH,
-                    hit.get("project_type").getAsString().equals("modpack"),
+                    pt.equals("modpack"),
+                    pt,
                     hit.get("project_id").getAsString(),
                     hit.get("title").getAsString(),
                     hit.get("description").getAsString(),
@@ -116,8 +120,15 @@ public class ModrinthApi implements ModpackApi{
 
     @Override
     public ModLoader installMod(ModDetail modDetail, int selectedVersion) throws IOException{
-        //TODO considering only modpacks for now
-        return ModpackInstaller.installModpack(modDetail, selectedVersion, this::installMrpack);
+        if(modDetail.isModpack) {
+            //TODO considering only modpacks for now
+            return ModpackInstaller.installModpack(modDetail, selectedVersion, this::installMrpack);
+        }
+        // Standalone content (mod / resource pack / shader / world): download the file into the
+        // corresponding profile subfolder of the currently selected profile.
+        String versionUrl = modDetail.versionUrls[selectedVersion];
+        String versionHash = modDetail.versionHashes[selectedVersion];
+        return ModpackInstaller.installStandaloneFile(modDetail, versionUrl, versionHash);
     }
 
     @Override

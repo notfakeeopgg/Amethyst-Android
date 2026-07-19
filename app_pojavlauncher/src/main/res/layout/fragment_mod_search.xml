@@ -91,6 +91,29 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
+    <!-- Category tabs: Mods / Resource Packs / Shaders / Worlds -->
+    <HorizontalScrollView
+        android:id="@+id/search_mod_categories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:background="@color/background_app"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:id="@+id/search_mod_category_row"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_medium">
+
+            <TextView android:id="@+id/cat_mod" style="@style/ParrotCatChip" android:text="@string/parrot_mods_category_mods" />
+            <TextView android:id="@+id/cat_resourcepack" style="@style/ParrotCatChip" android:text="@string/parrot_mods_category_resourcepacks" />
+            <TextView android:id="@+id/cat_shader" style="@style/ParrotCatChip" android:text="@string/parrot_mods_category_shaders" />
+            <TextView android:id="@+id/cat_world" style="@style/ParrotCatChip" android:text="@string/parrot_mods_category_worlds" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
     <TextView
         android:id="@+id/search_mod_status_text"
         android:layout_width="wrap_content"

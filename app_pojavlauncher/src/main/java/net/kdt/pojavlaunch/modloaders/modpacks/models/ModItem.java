@@ -8,10 +8,17 @@ public class ModItem extends ModSource {
     public String title;
     public String description;
     public String imageUrl;
+    /** Modrinth project_type: mod / resourcepack / shader / world. Carried through to install. */
+    public String projectType = SearchFilters.TYPE_MOD;
 
     public ModItem(int apiSource, boolean isModpack, String id, String title, String description, String imageUrl) {
+        this(apiSource, isModpack, SearchFilters.TYPE_MOD, id, title, description, imageUrl);
+    }
+
+    public ModItem(int apiSource, boolean isModpack, String projectType, String id, String title, String description, String imageUrl) {
         this.apiSource = apiSource;
         this.isModpack = isModpack;
+        this.projectType = projectType;
         this.id = id;
         this.title = title;
         this.description = description;
@@ -28,6 +35,7 @@ public class ModItem extends ModSource {
                 ", imageUrl='" + imageUrl + '\'' +
                 ", apiSource=" + apiSource +
                 ", isModpack=" + isModpack +
+                ", projectType=" + projectType +
                 '}';
     }
 
