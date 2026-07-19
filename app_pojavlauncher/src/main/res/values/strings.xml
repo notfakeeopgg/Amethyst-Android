@@ -530,6 +530,10 @@
     <string name="footer_copyright" translatable="false">© 2026 Parrot Launcher</string>
     <string name="parrot_mods_install_profile_title">Install into profile</string>
     <string name="parrot_mods_install_profile_prompt">Choose which game profile this content installs to:</string>
+    <string name="parrot_mods_category_mods">Mods</string>
+    <string name="parrot_mods_category_resourcepacks">Resource Packs</string>
+    <string name="parrot_mods_category_shaders">Shaders</string>
+    <string name="parrot_mods_category_worlds">Worlds</string>
     <string name="footer_version" translatable="false">Version 1.0</string>
 
 </resources>
